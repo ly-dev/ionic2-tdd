@@ -7,12 +7,15 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
 import { ProductPage } from '../pages/product/product';
+import { WishlistPage } from '../pages/wishlist/wishlist';
+
 import { ProductsService } from '../providers/products/products';
 
 @NgModule({
   declarations: [
     MyApp,
-    ProductPage
+    ProductPage,
+    WishlistPage
   ],
   imports: [
     BrowserModule,
@@ -22,7 +25,8 @@ import { ProductsService } from '../providers/products/products';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    ProductPage
+    ProductPage,
+    WishlistPage
   ],
   providers: [
     StatusBar,

@@ -2,6 +2,7 @@ import { Component, NgZone } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { ProductsService } from '../../providers/products/products';
+import { WishlistPage } from '../wishlist/wishlist';
 
 @IonicPage()
 @Component({
@@ -15,5 +16,9 @@ export class ProductPage {
 
   ionViewDidLoad() {
     this.productsService.load().subscribe();
+  }
+
+  launchWishlist() {
+   this.navCtrl.push(WishlistPage);
   }
 }
