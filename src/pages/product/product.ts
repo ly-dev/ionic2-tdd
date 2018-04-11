@@ -1,7 +1,7 @@
 import { Component, NgZone } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { ProductsProvider } from '../../providers/products/products';
+import { ProductsService } from '../../providers/products/products';
 
 @IonicPage()
 @Component({
@@ -10,10 +10,10 @@ import { ProductsProvider } from '../../providers/products/products';
 })
 export class ProductPage {
 
-  constructor(public navCtrl: NavController, public productsProvider: ProductsProvider, public zone: NgZone) {
+  constructor(public navCtrl: NavController, public productsService: ProductsService, public zone: NgZone) {
   }
 
   ionViewDidLoad() {
-    this.productsProvider.load().subscribe();
+    this.productsService.load().subscribe();
   }
 }

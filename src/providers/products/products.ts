@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 
 @Injectable()
-export class ProductsProvider {
+export class ProductsService {
 
   products: any;
 

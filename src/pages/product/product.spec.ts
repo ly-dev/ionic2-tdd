@@ -4,7 +4,7 @@ import { DebugElement } from '@angular/core';
 import { IonicModule, NavController } from 'ionic-angular';
 import { MyApp } from '../../app/app.component';
 import { ProductPage } from './product';
-import { ProductsProvider } from '../../providers/products/products';
+import { ProductsService } from '../../providers/products/products';
 import { ProductsMock } from '../../mocks';
 
 let comp: ProductPage;
@@ -23,7 +23,7 @@ describe('Page: Product Page', () => {
             providers: [
               NavController,
               {
-                  provide: ProductsProvider,
+                  provide: ProductsService,
                   useClass: ProductsMock
               }
             ],
@@ -59,8 +59,8 @@ describe('Page: Product Page', () => {
 
     it('displays products containing a title, description, and price in the list', () => {
 
-        let productsProvider = fixture.debugElement.injector.get(ProductsProvider);
-        let firstProduct = productsProvider.products[0];
+        let productsService = fixture.debugElement.injector.get(ProductsService);
+        let firstProduct = productsService.products[0];
 
         fixture.detectChanges();
 

@@ -1,11 +1,11 @@
 import { TestBed, inject, async } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { MockBackend } from '@angular/http/testing';
-import { ProductsProvider } from './products';
+import { ProductsService } from './products';
 
-let productsProvider:any = null;
+let productsService:any = null;
 
-describe('Provider: ProductsProvider', () => {
+describe('Service: ProductsService', () => {
 
   beforeEach(async(() => {
 
@@ -16,7 +16,7 @@ describe('Provider: ProductsProvider', () => {
         ],
 
         providers: [
-            ProductsProvider,
+            ProductsService,
         ],
 
         imports: [
@@ -33,14 +33,14 @@ describe('Provider: ProductsProvider', () => {
 
 
   it('should have a non empty array called products', () => {
-    const productsProvider = TestBed.get(ProductsProvider);
+    const productsService = TestBed.get(ProductsService);
     const http = TestBed.get(HttpTestingController);
     // fake response
     const mockResponse = {"products": [{"title": "Cool shoes", "description": "Isnt it obvious?", "price": "39.99"}, {"title": "Broken shoes", "description": "You should probably get the other ones", "price": "89.99"}, {"title": "Socks", "description": "The essential footwear companion", "price": "2.99"} ] };
 
-    productsProvider.load().subscribe(() => {
-      expect(Array.isArray(productsProvider.products)).toBeTruthy();
-      expect(productsProvider.products.length).toBeGreaterThan(0);
+    productsService.load().subscribe(() => {
+      expect(Array.isArray(productsService.products)).toBeTruthy();
+      expect(productsService.products.length).toBeGreaterThan(0);
     });
 
     http.expectOne('assets/data/products.json').flush(mockResponse);
