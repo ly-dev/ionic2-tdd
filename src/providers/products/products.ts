@@ -1,4 +1,4 @@
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 
@@ -7,12 +7,12 @@ export class ProductsProvider {
 
   products: any;
 
-  constructor(public http: Http) {
+  constructor(public httpClient: HttpClient) {
 
   }
 
   load () {
-    this.http.get('assets/data/products.json').map((res: any) => res.json()).subscribe(data => {
+    return this.httpClient.get('assets/data/products.json').map((data: any) => {
       this.products = data.products;
     });
   }

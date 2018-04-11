@@ -1,5 +1,5 @@
 import { TestBed, inject, async } from '@angular/core/testing';
-import { Http, HttpModule, BaseRequestOptions, Response, ResponseOptions }  from '@angular//http';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { MockBackend } from '@angular/http/testing';
 import { ProductsProvider } from './products';
 
@@ -17,19 +17,10 @@ describe('Provider: ProductsProvider', () => {
 
         providers: [
             ProductsProvider,
-            MockBackend,
-            BaseRequestOptions,
-            {
-                provide: Http,
-                useFactory: (mockBackend, options) => {
-                    return new Http(mockBackend, options);
-                },
-                deps: [MockBackend, BaseRequestOptions]
-            }
         ],
 
         imports: [
-            HttpModule
+          HttpClientTestingModule
         ]
 
     }).compileComponents();
@@ -41,23 +32,18 @@ describe('Provider: ProductsProvider', () => {
   });
 
 
-  it('should have a non empty array called products', inject([ProductsProvider, MockBackend], (productsProvider, mockBackend) => {
+  it('should have a non empty array called products', () => {
+    const productsProvider = TestBed.get(ProductsProvider);
+    const http = TestBed.get(HttpTestingController);
+    // fake response
+    const mockResponse = {"products": [{"title": "Cool shoes", "description": "Isnt it obvious?", "price": "39.99"}, {"title": "Broken shoes", "description": "You should probably get the other ones", "price": "89.99"}, {"title": "Socks", "description": "The essential footwear companion", "price": "2.99"} ] };
 
-    const mockResponse = '{"products": [{"title": "Cool shoes", "description": "Isnt it obvious?", "price": "39.99"}, {"title": "Broken shoes", "description": "You should probably get the other ones", "price": "89.99"}, {"title": "Socks", "description": "The essential footwear companion", "price": "2.99"} ] }';
-
-    mockBackend.connections.subscribe((connection) => {
-
-        connection.mockRespond(new Response(new ResponseOptions({
-            body: mockResponse
-        })));
-
+    productsProvider.load().subscribe(() => {
+      expect(Array.isArray(productsProvider.products)).toBeTruthy();
+      expect(productsProvider.products.length).toBeGreaterThan(0);
     });
 
-    productsProvider.load();
-
-    expect(Array.isArray(productsProvider.products)).toBeTruthy();
-    expect(productsProvider.products.length).toBeGreaterThan(0);
-
-  }));
+    http.expectOne('assets/data/products.json').flush(mockResponse);
+  });
 
 });
