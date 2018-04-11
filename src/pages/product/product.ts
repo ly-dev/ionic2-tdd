@@ -1,8 +1,9 @@
-import { Component, NgZone } from '@angular/core';
+import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { ProductsService } from '../../providers/products/products';
 import { WishlistPage } from '../wishlist/wishlist';
+import { WishlistService } from '../../providers/wishlist/wishlist';
 
 @IonicPage()
 @Component({
@@ -11,7 +12,7 @@ import { WishlistPage } from '../wishlist/wishlist';
 })
 export class ProductPage {
 
-  constructor(public navCtrl: NavController, public productsService: ProductsService, public zone: NgZone) {
+  constructor(public navCtrl: NavController, public productsService: ProductsService, public wishlistService: WishlistService) {
   }
 
   ionViewDidLoad() {
@@ -19,6 +20,10 @@ export class ProductPage {
   }
 
   launchWishlist() {
-   this.navCtrl.push(WishlistPage);
+    this.navCtrl.push(WishlistPage);
+  }
+
+  addToWishlist(product){
+    this.wishlistService.addProduct(product);
   }
 }

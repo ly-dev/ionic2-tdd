@@ -10,6 +10,7 @@ import { ProductPage } from '../pages/product/product';
 import { WishlistPage } from '../pages/wishlist/wishlist';
 
 import { ProductsService } from '../providers/products/products';
+import { WishlistService } from '../providers/wishlist/wishlist';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { ProductsService } from '../providers/products/products';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    ProductsService
+    ProductsService,
+    WishlistService
   ]
 })
 export class AppModule {}

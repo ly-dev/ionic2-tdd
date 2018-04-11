@@ -1,18 +1,23 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
+import { WishlistService } from '../../providers/wishlist/wishlist'
 
-@IonicPage()
 @Component({
   selector: 'page-wishlist',
-  templateUrl: 'wishlist.html',
+  templateUrl: 'wishlist.html'
 })
 export class WishlistPage {
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, public wishlistService: WishlistService) {
+
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad WishlistPage');
+
+  }
+
+  deleteFromWishlist(product){
+    this.wishlistService.deleteProduct(product);
   }
 
 }

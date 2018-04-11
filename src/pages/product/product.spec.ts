@@ -6,7 +6,8 @@ import { MyApp } from '../../app/app.component';
 import { ProductPage } from './product';
 import { WishlistPage } from '../wishlist/wishlist';
 import { ProductsService } from '../../providers/products/products';
-import { NavMock, ProductsMock } from '../../mocks';
+import { WishlistService } from '../../providers/wishlist/wishlist';
+import { NavMock, ProductsServiceMock, WishlistServiceMock } from '../../mocks';
 
 let comp: ProductPage;
 let fixture: ComponentFixture<ProductPage>;
@@ -28,7 +29,11 @@ describe('Page: Product Page', () => {
               },
               {
                   provide: ProductsService,
-                  useClass: ProductsMock
+                  useClass: ProductsServiceMock
+              },
+              {
+                provide: WishlistService,
+                useClass: WishlistServiceMock
               }
             ],
 
@@ -87,6 +92,23 @@ describe('Page: Product Page', () => {
       de.triggerEventHandler('click', null);
 
       expect(navCtrl.push).toHaveBeenCalledWith(WishlistPage);
+
+    });
+
+    it('should add product to wishlist when add to wishlist button clicked', () => {
+
+      let wishlistService = fixture.debugElement.injector.get(WishlistService);
+      spyOn(wishlistService, 'addProduct');
+
+      let productsService = fixture.debugElement.injector.get(ProductsService);
+      let firstProduct = productsService.products[0];
+
+      fixture.detectChanges();
+
+      de = fixture.debugElement.query(By.css('ion-item-sliding button'));
+      de.triggerEventHandler('click', null);
+
+      expect(wishlistService.addProduct).toHaveBeenCalledWith(firstProduct);
 
     });
 });
