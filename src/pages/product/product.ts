@@ -14,7 +14,7 @@ export class ProductPage {
   }
 
   ionViewDidLoad() {
-
+    this.productsProvider.load();
   }
 
 }

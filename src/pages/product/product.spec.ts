@@ -5,6 +5,7 @@ import { IonicModule, NavController } from 'ionic-angular';
 import { MyApp } from '../../app/app.component';
 import { ProductPage } from './product';
 import { ProductsProvider } from '../../providers/products/products';
+import { ProductsMock } from '../../mocks';
 
 let comp: ProductPage;
 let fixture: ComponentFixture<ProductPage>;
@@ -20,7 +21,11 @@ describe('Page: Product Page', () => {
             declarations: [MyApp, ProductPage],
 
             providers: [
-                NavController, ProductsProvider
+              NavController,
+              {
+                  provide: ProductsProvider,
+                  useClass: ProductsMock
+              }
             ],
 
             imports: [
